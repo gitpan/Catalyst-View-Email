@@ -1,0 +1,19 @@
+abstract: Send Email from Catalyst
+author: J. Shirley <jshirley@gmail.com>
+build_requires: 
+  Catalyst::View::TT: 0
+distribution_type: module
+generated_by: Module::Install version 0.64
+license: perl
+name: Catalyst-View-Email
+no_index: 
+  directory: 
+    - inc
+    - t
+requires: 
+  Catalyst: 5.7
+  Class::C3: 0
+  Email::MIME: 1.859
+  Email::MIME::Creator: 1.453
+  Email::Send: 2.185
+version: 0.01
