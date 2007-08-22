@@ -79,6 +79,32 @@ sub template_email : Global('template_email') {
     }
 }
 
+sub template_email_app_config : Global('template_email_app_config') {
+    my ($self, $c, @args) = @_;
+
+    $c->stash->{time} = $c->req->params->{time} || time;
+
+    $c->stash->{template_email} = {
+        to      => 'test-email@example.com',
+        from    => 'no-reply@example.com',
+        subject => 'Just a test',
+        content_type => 'multipart/alternative',
+        templates => [
+            qw{text_plain/test.tt},
+            qw{text_html/test.tt}
+        ]
+    };
+
+    $c->forward('TestApp::View::Email::Template::AppConfig');
+
+    if ( scalar( @{ $c->error } ) ) {
+        $c->res->status(500);
+        $c->res->body('Template Email Failed');
+    } else {
+        $c->res->body('Template Email Ok');
+    }
+}
+
 sub mason_email : Global('mason_email') {
     my ($self, $c, @args) = @_;
 
