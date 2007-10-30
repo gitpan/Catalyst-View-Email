@@ -62,11 +62,17 @@ sub template_email : Global('template_email') {
         to      => 'test-email@example.com',
         from    => 'no-reply@example.com',
         subject => 'Just a test',
-        content_type => 'multipart/alternative',
         templates => [
-            qw{text_plain/test.tt},
-            qw{text_html/test.tt}
-        ]
+            {
+                template        => 'text_plain/test.tt',
+                content_type    => 'text/plain',
+            },
+            {
+                view            => 'TT',
+                template        => 'text_html/test.tt',
+                content_type    => 'text/html',
+            },
+        ],
     };
 
     $c->forward('TestApp::View::Email::Template');    
@@ -88,11 +94,17 @@ sub template_email_app_config : Global('template_email_app_config') {
         to      => 'test-email@example.com',
         from    => 'no-reply@example.com',
         subject => 'Just a test',
-        content_type => 'multipart/alternative',
         templates => [
-            qw{text_plain/test.tt},
-            qw{text_html/test.tt}
-        ]
+            {
+                template        => 'text_plain/test.tt',
+                content_type    => 'text/plain',
+            },
+            {
+                view            => 'TT',
+                template        => 'text_html/test.tt',
+                content_type    => 'text/html',
+            },
+        ],
     };
 
     $c->forward('TestApp::View::Email::Template::AppConfig');
@@ -114,11 +126,18 @@ sub mason_email : Global('mason_email') {
         to      => 'test-email@example.com',
         from    => 'no-reply@example.com',
         subject => 'Just a test',
-        content_type => 'multipart/alternative',
+        view    => 'Mason',
         templates => [
-            qw{text_plain/test.m},
-            qw{text_html/test.m}
-        ]
+            {
+                template        => 'text_plain/test.m',
+                content_type    => 'text/plain',
+            },
+            {
+                view            => 'Mason',
+                template        => 'text_html/test.m',
+                content_type    => 'text/html',
+            },
+        ],
     };
 
     $c->forward('TestApp::View::Email::Template');    

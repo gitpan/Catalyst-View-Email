@@ -5,14 +5,13 @@ use strict;
 
 use Class::C3;
 use Carp;
+use Scalar::Util qw/ blessed /;
 
 use Email::MIME::Creator;
 
-use base qw|Catalyst::View::Email|;
+use base qw/ Catalyst::View::Email /;
 
-our $VERSION = '0.06';
-
-__PACKAGE__->mk_accessors( qw(default_view template_prefix) );
+our $VERSION = '0.09999_02';
 
 =head1 NAME
 
@@ -20,62 +19,92 @@ Catalyst::View::Email::Template - Send Templated Email from Catalyst
 
 =head1 SYNOPSIS
 
-Sends Templated mail, based upon your Default View.  Will capture the output
+Sends Templated mail, based upon your default view. It captures the output
 of the rendering path, slurps in based on mime-types and assembles a multi-part
-email and sends it out.
+email using Email::MIME::Creator and sends it out.
 
-=head2 CONFIGURATION
+=head1 CONFIGURATION
+
+Use the helper to create your View:
+    
+    $ script/myapp_create.pl view Email::Template Email::Template
+
+In your app configuration (example in L<YAML>):
 
     View::Email::Template:
-        # Set it up so if you have multiple parts, they're alternatives.
-        # This is on the top-level message, not the individual parts.
-        content_type: multipart/alternative
         # Optional prefix to look somewhere under the existing configured
         # template  paths.
+        # Default: none
         template_prefix: email
-        # Where to look in the stash for the email information
+        # Where to look in the stash for the email information.
+        # Default: email
         stash_key: email
+        # Define the defaults for the mail
+        default:
+            # Defines the default content type (mime type).
+            # Mandatory
+            content_type: text/html
+            # Defines the default charset for every MIME part with the content
+            # type text.
+            # According to RFC2049 a MIME part without a charset should
+            # be treated as US-ASCII by the mail client.
+            # If the charset is not set it won't be set for all MIME parts
+            # without an overridden one.
+            # Default: none
+            charset: utf-8
+            # Defines the default view used to render the templates.
+            # If none is specified neither here nor in the stash
+            # Catalysts default view is used.
+            # Warning: if you don't tell Catalyst explicit which of your views should
+            # be its default one, C::V::Email::Template may choose the wrong one!
+            view: TT
         # Setup how to send the email
+        # All those options are passed directly to Email::Send,
+        # for all available options look at its docs.
         sender:
-            method:     SMTP
-            host:       smtp.myhost.com
-            username:   username
-            password:   password
+            mailer: SMTP
+            mailer_args:
+                Host:       smtp.example.com # defaults to localhost
+                username:   username
+                password:   password
 
 =head1 SENDING EMAIL
 
-Sending email is just setting up your stash key, and forwarding to the view.
+Sending email is just setting up your defaults, the stash key and forwarding to the view.
 
     $c->stash->{email} = {
         to      => 'jshirley@gmail.com',
         from    => 'no-reply@foobar.com',
         subject => 'I am a Catalyst generated email',
-        # Specify which templates to include
-        templates => [
-            qw{text_plain/test.tt},
-            qw{text_html/test.tt}
-        ]
+        template => 'test.tt',
     };
     $c->forward('View::Email::Template');
 
-Alternatively if you want more control over your templates you can use the following idiom :-
+Alternatively if you want more control over your templates you can use the following idiom
+to override the defaults:
 
     templates => [
-		{ 	view => 'HTML', 
-			template => 'email/test.html.tt',
-			content_type => 'text/html'
-		},
-		{ 	view => 'Text', 
-			template => 'email/test.plain.tt',
-			content_type => 'text/plain'
-		}
-
+        {
+            template        => 'email/test.html.tt',
+            content_type    => 'text/html',
+            charset         => 'utf-8',
+            view            => 'TT', 
+        },
+        {
+            template        => 'email/test.plain.mason',
+            content_type    => 'text/plain',
+            charset         => 'utf-8',
+            view            => 'Mason', 
+        }
     ]
 
 
 If it fails $c->error will have the error message.
 
 =cut
+
+# here the defaults of Catalyst::View::Email are extended by the additional
+# ones Template.pm needs.
 
 __PACKAGE__->config(
     template_prefix => '',
@@ -94,97 +123,118 @@ __PACKAGE__->config(
 # into an Email::MIME container.  The mime-type will be stupidly guessed with
 # the subdir on the template.
 #
-# TODO: Make this unretarded.
-#
+
+# Set it up so if you have multiple parts, they're alternatives.
+# This is on the top-level message, not the individual parts.
+#multipart/alternative
+
+sub _validate_view {
+    my ($self, $view) = @_;
+    
+    croak "Email::Template's configured view '$view' isn't an object!"
+        unless (blessed($view));
+
+    croak "Email::Template's configured view '$view' isn't an Catalyst::View!"
+        unless ($view->isa('Catalyst::View'));
+
+    croak "Email::Template's configured view '$view' doesn't have a render method!"
+        unless ($view->can('render'));
+}
+
+sub generate_part {
+    my ($self, $c, $attrs) = @_;
+
+    my $template_prefix         = $self->{template_prefix};
+    my $default_view            = $self->{default}->{view};
+    my $default_content_type    = $self->{default}->{content_type};
+    my $default_charset         = $self->{default}->{charset};
+
+    my $view;
+    # use the view specified for the email part
+    if (exists $attrs->{view} && defined $attrs->{view} && $attrs->{view} ne '') {
+        $view = $c->view($attrs->{view});
+        $c->log->debug("C::V::Email::Template uses specified view $view for rendering.") if $c->debug;
+    }
+    # if none specified use the configured default view
+    elsif ($default_view) {
+        $view = $c->view($default_view);
+        $c->log->debug("C::V::Email::Template uses default view $view for rendering.") if $c->debug;;
+    }
+    # else fallback to Catalysts default view
+    else {
+        $view = $c->view;
+        $c->log->debug("C::V::Email::Template uses Catalysts default view $view for rendering.") if $c->debug;;
+    }
+
+    # validate the per template view
+    $self->_validate_view($view);
+    
+    # prefix with template_prefix if configured
+    my $template = $template_prefix ne '' ? join('/', $template_prefix, $attrs->{template}) : $attrs->{template};
+   
+    # setup the attributes (merge with defaults)
+    my $e_m_attrs = $self->setup_attributes($c, $attrs);
+
+    # render the email part
+    my $output = $view->render( $c, $template, { 
+        content_type    => $e_m_attrs->{content_type},
+        stash_key       => $self->{stash_key},
+        %{$c->stash},
+    });
+    
+    if ( ref $output ) {
+        croak $output->can('as_string') ? $output->as_string : $output;
+    }
+
+    return Email::MIME->create(
+        attributes => $e_m_attrs,
+        body       => $output,
+    );
+}
+
 sub process {
     my ( $self, $c ) = @_;
 
-    my $stash_key = $self->stash_key || 'email';
+    # don't validate template_prefix
+
+    # the default view is validated if used
+
+    # the content type should be validated by Email::MIME::Creator
+    
+    my $stash_key = $self->{stash_key};
 
     croak "No template specified for rendering"
-        unless $c->stash->{$stash_key}->{template} or
-                $c->stash->{$stash_key}->{templates};
-    # Where to look
-    my $template_prefix = $self->template_prefix;
-    my @templates = ();
-
-    if ( $c->stash->{$stash_key}->{templates} && !ref $c->stash->{$stash_key}->{templates}[0]) {
-        push @templates, map {
-            join('/', $template_prefix, $_);
-        } @{$c->stash->{$stash_key}->{templates}};
-
-    } elsif($c->stash->{$stash_key}->{template}) {
-        push @templates, join('/', $template_prefix,
-            $c->stash->{$stash_key}->{template});
-    }
-   
-    my $default_view = $c->view( $self->default_view );
-
-    unless ( $default_view->can('render') ) {
-        croak "Email::Template's configured view does not have a render method!";
-    }
-
-    #$c->log->_dump($default_view->config);
-
+        unless $c->stash->{$stash_key}->{template}
+            or $c->stash->{$stash_key}->{templates};
+    
+    # this array holds the Email::MIME objects
+    # in case of the simple api only one
     my @parts = (); 
-    foreach my $template ( @templates ) {
-        $template =~ s#^/+##; # Make sure that we don't have an absolute path.
-        # This seems really stupid to me... argh.  will give me nightmares!
-        my $template_path = $template;
-            $template_path =~ s#^$template_prefix/##;
-        my ( $content_type, $extra ) = split('/', $template_path);
-        if ( $extra ) {
-            $content_type ||= 'text/plain';
-            $content_type =~  s#_#/#;
-        } else {
-            $content_type = 'text/plain';
-        }
 
-        my $output = $default_view->render( $c, $template, {
-            content_type => $content_type,
-            stash_key => $self->stash_key,
-            %{$c->stash},
-        });
-
-        # Got a ref, not a scalar.  An error!
-        if ( ref $output ) {
-            croak $output->can("as_string") ? $output->as_string : $output;
+    # now find out if the single or multipart api was used
+    # prefer the multipart one
+    
+    # multipart api
+    if ($c->stash->{$stash_key}->{templates}
+        && ref $c->stash->{$stash_key}->{templates} eq 'ARRAY'
+        && ref $c->stash->{$stash_key}->{templates}[0] eq 'HASH') {
+        # loop through all parts of the mail
+        foreach my $part (@{$c->stash->{$stash_key}->{templates}}) {
+            push @parts, $self->generate_part($c, {
+                view            => $part->{view},
+                template        => $part->{template},
+                content_type    => $part->{content_type},
+                charset         => $part->{charset},
+            });
         }
-        push @parts, Email::MIME->create(
-            attributes => {
-                content_type => $content_type
-            },
-            body => $output
-        );
     }
-
-	#add user parts :-
-	if ( $c->stash->{$stash_key}->{'templates'} && ref $c->stash->{$stash_key}->{templates}[0] ) {
-		foreach my $part (@{$c->stash->{$stash_key}->{'templates'}}) {
-			my $view = $c->view($part->{'view'} || $self->config->{default_view});
-
-		    my $content_type = $part->{'content_type'} || 'text/plain';
-			unless ( $view->can('render') ) {
-		        croak "Part does not have valid render view";
-		    }
-
-	        my $output = $view->render( $c, $part->{'template'}, { 
-				'content_type' => $content_type, 
-				%{$c->stash} });
-				
-	        if ( ref $output ) {
-	            croak $output->can("as_string") ? $output->as_string : $output;
-	        }
-	
-	        push @parts, Email::MIME->create(
-	            attributes => {
-	                content_type => $content_type
-	            },
-	            body => $output
-	        );
-		}
-	}
-
+    # single part api
+    elsif($c->stash->{$stash_key}->{template}) {
+        push @parts, $self->generate_part($c, {
+            template    => $c->stash->{$stash_key}->{template},
+        });
+    }
+    
     delete $c->stash->{$stash_key}->{body};
     $c->stash->{$stash_key}->{parts} ||= [];
     push @{$c->stash->{$stash_key}->{parts}}, @parts;
@@ -224,6 +274,8 @@ J. Shirley <jshirley@gmail.com>
 
 Simon Elliott <cpan@browsing.co.uk>
 
+Alexander Hartmaier <alex_hartmaier@hotmail.com>
+
 =head1 LICENSE
 
 This library is free software, you can redistribute it and/or modify it under
@@ -232,4 +284,3 @@ the same terms as Perl itself.
 =cut
 
 1;
-
