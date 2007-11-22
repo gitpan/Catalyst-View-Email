@@ -1,8 +1,9 @@
 --- 
 abstract: Send Email from Catalyst
-author: J. Shirley <jshirley@gmail.com>
+author: 
+  - J. Shirley <jshirley@gmail.com>
 distribution_type: module
-generated_by: Module::Install version 0.67
+generated_by: Module::Install version 0.68
 license: perl
 meta-spec: 
   url: http://module-build.sourceforge.net/META-spec-v1.3.html
@@ -18,4 +19,4 @@ requires:
   Email::MIME: 1.859
   Email::MIME::Creator: 1.453
   Email::Send: 2.185
-version: 0.09999_02
+version: 0.10
