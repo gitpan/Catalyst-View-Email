@@ -24,6 +24,9 @@ t/05template.t
 t/06config.t
 t/07mason.t
 t/lib/TestApp.pm
+t/lib/TestApp/cache/obj/
+t/lib/TestApp/cache/obj/
+t/lib/TestApp/cache/obj/
 t/lib/TestApp/Controller/Root.pm
 t/lib/TestApp/View/Email.pm
 t/lib/TestApp/View/Email/AppConfig.pm

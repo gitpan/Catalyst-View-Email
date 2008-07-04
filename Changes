@@ -1,5 +1,9 @@
 Revision history for Perl extension Catalyst::View::Email.
 
+0.11    2008-07-04 09:14:00
+        - Fixing a bug where content-type was ignored so multipart/alternative
+          failed.  RT #32215
+
 0.10    2007-11-22 23:00:00
         - Refactored by Alexander Hartmaier with api changes
           and POD improvements
