@@ -11,7 +11,7 @@ use Email::MIME::Creator;
 
 use base qw/ Catalyst::View::Email /;
 
-our $VERSION = '0.11';
+our $VERSION = '0.13';
 
 =head1 NAME
 
@@ -60,7 +60,7 @@ the template instead of the body and forwarding to your Email::Template view:
         $c->stash->{email} = {
             to          => 'jshirley@gmail.com',
             cc          => 'abraxxa@cpan.org',
-            bcc         => [ qw/hidden@secret.com hidden2@foobar.com/ ],
+            bcc         => 'hidden@secret.com hidden2@foobar.com',
             from        => 'no-reply@foobar.com',
             subject     => 'I am a Catalyst generated email',
             template    => 'test.tt',
