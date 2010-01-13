@@ -2,8 +2,12 @@
 abstract: 'Send Email from Catalyst'
 author:
   - 'J. Shirley <jshirley@gmail.com>'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.77'
+generated_by: 'Module::Install version 0.91'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -15,11 +19,12 @@ no_index:
     - t
 requires:
   Catalyst: 5.7
-  Class::C3: 0
   Email::MIME: 1.859
   Email::MIME::Creator: 1.455
-  Email::Send: 2.185
+  Email::Sender::Simple: 0.100110
+  Moose: 0.93
   parent: 0
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.13
+  repository: http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/0.10/
+version: 0.15
