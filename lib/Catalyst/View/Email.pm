@@ -8,7 +8,7 @@ use Email::Sender::Simple qw/ sendmail /;
 use Email::MIME::Creator;
 extends 'Catalyst::View';
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 has 'mailer' => (
     is      => 'rw',
@@ -48,6 +48,10 @@ has 'content_type' => (
 =head1 NAME
 
 Catalyst::View::Email - Send Email from Catalyst
+
+=head1 VERSION
+
+version 0.17
 
 =head1 SYNOPSIS
 

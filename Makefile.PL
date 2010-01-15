@@ -1,29 +1,31 @@
-use inc::Module::Install 0.87;
 
-name 'Catalyst-View-Email';
-all_from 'lib/Catalyst/View/Email.pm';
+use strict;
+use warnings;
 
-requires 'Catalyst'              => '5.7';
-requires 'Moose'                 => '0.93';
-requires 'parent';
-requires 'Email::Sender::Simple' => '0.100110';
-requires 'Email::MIME'           => '1.859';
-requires 'Email::MIME::Creator'  => '1.455';
 
-feature 'Template Toolkit Support',
-    -default => 1,
-    'Catalyst::View::TT' => 0;
 
-feature 'Mason Support',
-    -default => 0,
-    'Catalyst::View::Mason';
+use ExtUtils::MakeMaker;
 
-feature 'Net::SMTP Support',
-    -default => 0,
-    'MIME::Base64',
-    'Authen::SASL';
+WriteMakefile(
+  DISTNAME  => 'Catalyst-View-Email',
+  NAME      => 'Catalyst::View::Email',
+  AUTHOR    => "J\.\ Shirley\ \<jshirley\@gmail\.com\>",
+  ABSTRACT  => "Send\ Email\ from\ Catalyst",
+  VERSION   => '0.17',
+  EXE_FILES => [ qw() ],
+  (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
+  PREREQ_PM    => {
+    "Catalyst::View::TT" => '""',
+    "parent" => '""',
+    "Email::MIME" => '1.859',
+    "Authen::SASL" => '""',
+    "Catalyst::View::Mason" => '""',
+    "Email::Sender::Simple" => '0.100110',
+    "MIME::Base64" => '""',
+    "Email::MIME::Creator" => '1.455',
+    "Catalyst" => '5.7',
+    "Moose" => '0.93',
+  },
+  test => {TESTS => 't/*.t'}
+);
 
-auto_install;
-resources repository => 'http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/0.10/';
-
-WriteAll;

@@ -1,5 +1,6 @@
 package # Hide from PAUSE
     TestApp;
+our $VERSION = '0.17';
 
 use Catalyst qw/ -Debug /;
 use FindBin;
