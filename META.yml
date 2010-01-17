@@ -9,14 +9,15 @@ meta-spec:
   version: 1.4
 name: Catalyst-View-Email
 requires:
-  Authen::SASL: "\"\""
+  Authen::SASL: 2.13
   Catalyst: 5.7
-  Catalyst::View::Mason: "\"\""
-  Catalyst::View::TT: "\"\""
+  Catalyst::View::Mason: 0.18
+  Catalyst::View::TT: 0.31
   Email::MIME: 1.859
   Email::MIME::Creator: 1.455
+  Email::Send::Test: 2.198
   Email::Sender::Simple: 0.100110
-  MIME::Base64: "\"\""
+  MIME::Base64: 3.08
   Moose: 0.93
-  parent: "\"\""
-version: 0.17
+  parent: 0.223
+version: 0.18

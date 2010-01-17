@@ -23,8 +23,6 @@ t/lib/TestApp/View/Email/Template.pm
 t/lib/TestApp/View/Email/Template/AppConfig.pm
 t/lib/TestApp/View/Mason.pm
 t/lib/TestApp/View/TT.pm
-t/lib/TestApp/cache/obj/99865843/text_html/test.m.obj
-t/lib/TestApp/cache/obj/99865843/text_plain/test.m.obj
 t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/root/text_html/test.m
