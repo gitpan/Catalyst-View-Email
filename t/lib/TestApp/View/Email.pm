@@ -1,6 +1,6 @@
 package # Hide from PAUSE
     TestApp::View::Email;
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 
 use Email::Send::Test;
 
