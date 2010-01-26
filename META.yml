@@ -8,19 +8,17 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Catalyst-View-Email
-recommends:
+requires:
   Authen::SASL: 2.13
+  Catalyst: 5.7
   Catalyst::View::Mason: 0.18
   Catalyst::View::TT: 0.31
-  MIME::Base64: 3.08
-requires:
-  Catalyst: 5.7
   Email::MIME: 1.859
   Email::MIME::Creator: 1.455
-  Email::Send::Test: 2.198
   Email::Sender::Simple: 0.100110
+  MIME::Base64: 3.08
   Moose: 0.93
   parent: 0.223
 resources:
-  repository: http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/0.10/
-version: 0.19
+  repository: http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email
+version: 0.20

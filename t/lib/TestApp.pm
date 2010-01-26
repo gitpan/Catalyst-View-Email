@@ -1,6 +1,6 @@
 package # Hide from PAUSE
     TestApp;
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 use Catalyst;
 use FindBin;

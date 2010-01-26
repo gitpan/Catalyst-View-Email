@@ -13,7 +13,7 @@ Catalyst::View::Email::Template - Send Templated Email from Catalyst
 
 =head1 VERSION
 
-version 0.19
+version 0.20
 
 =head1 SYNOPSIS
 
