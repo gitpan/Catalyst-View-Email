@@ -5,15 +5,15 @@ use Carp;
 use Scalar::Util qw/ blessed /;
 extends 'Catalyst::View::Email';
 
-our $VERSION = '0.19';
-
+our $VERSION = '0.21_01';
+$VERSION = eval $VERSION;
 =head1 NAME
 
 Catalyst::View::Email::Template - Send Templated Email from Catalyst
 
 =head1 VERSION
 
-version 0.20
+version 0.21_01
 
 =head1 SYNOPSIS
 
@@ -239,7 +239,7 @@ sub generate_part {
 The process method is called when the view is dispatched to. This creates the
 multipart message and then sends the message contents off to
 L<Catalyst::View::Email> for processing, which in turn hands off to
-L<Email::Send>.
+L<Email::Sender::Simple>.
 
 =cut
 
