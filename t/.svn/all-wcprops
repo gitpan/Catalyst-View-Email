@@ -1,41 +1,41 @@
 K 25
 svn:wc:ra_dav:version-url
 V 62
-/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t
+/repos/Catalyst/!svn/ver/12763/Catalyst-View-Email/tags/0.22/t
 END
 01use.t
 K 25
 svn:wc:ra_dav:version-url
 V 70
-/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/01use.t
+/repos/Catalyst/!svn/ver/12763/Catalyst-View-Email/tags/0.22/t/01use.t
 END
 05template.t
 K 25
 svn:wc:ra_dav:version-url
 V 75
-/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/05template.t
+/repos/Catalyst/!svn/ver/12763/Catalyst-View-Email/tags/0.22/t/05template.t
 END
 02pod.t
 K 25
 svn:wc:ra_dav:version-url
 V 70
-/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/02pod.t
+/repos/Catalyst/!svn/ver/12763/Catalyst-View-Email/tags/0.22/t/02pod.t
 END
 07mason.t
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/07mason.t
+/repos/Catalyst/!svn/ver/12763/Catalyst-View-Email/tags/0.22/t/07mason.t
 END
 04basic.t
 K 25
 svn:wc:ra_dav:version-url
 V 72
-/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/04basic.t
+/repos/Catalyst/!svn/ver/12763/Catalyst-View-Email/tags/0.22/t/04basic.t
 END
 06config.t
 K 25
 svn:wc:ra_dav:version-url
 V 73
-/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/06config.t
+/repos/Catalyst/!svn/ver/12763/Catalyst-View-Email/tags/0.22/t/06config.t
 END

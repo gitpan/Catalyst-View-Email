@@ -1,8 +1,8 @@
 10
 
 dir
-12761
-http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/tags/0.21/t/lib
+12763
+http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/tags/0.22/t/lib
 http://dev.catalyst.perl.org/repos/Catalyst
 
 
@@ -35,7 +35,7 @@ file
 
 
 
-2010-01-28T20:12:54.000000Z
+2010-01-28T20:36:18.000000Z
 3bf5b7b7878f22b8fc993e05b6b630bd
 2010-01-18T21:40:21.108477Z
 12680

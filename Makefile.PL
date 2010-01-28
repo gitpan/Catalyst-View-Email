@@ -11,7 +11,7 @@ WriteMakefile(
   NAME      => 'Catalyst::View::Email',
   AUTHOR    => "J\.\ Shirley\ \<jshirley\@gmail\.com\>",
   ABSTRACT  => "Send\ Email\ from\ Catalyst",
-  VERSION   => '0.21',
+  VERSION   => '0.22',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
