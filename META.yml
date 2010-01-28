@@ -21,4 +21,4 @@ requires:
   parent: 0.223
 resources:
   repository: http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email
-version: 0.21_01
+version: 0.21

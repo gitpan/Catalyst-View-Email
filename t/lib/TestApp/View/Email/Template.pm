@@ -1,6 +1,6 @@
 package # Hide me
     TestApp::View::Email::Template;
-our $VERSION = '0.21_01';
+our $VERSION = '0.21';
 
 use strict;
 use base 'Catalyst::View::Email::Template';

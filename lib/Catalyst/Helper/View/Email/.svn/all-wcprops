@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
-V 87
-/repos/Catalyst/!svn/ver/10244/Catalyst-View-Email/trunk/lib/Catalyst/Helper/View/Email
+V 91
+/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/lib/Catalyst/Helper/View/Email
 END
 Template.pm
 K 25
 svn:wc:ra_dav:version-url
-V 99
-/repos/Catalyst/!svn/ver/10244/Catalyst-View-Email/trunk/lib/Catalyst/Helper/View/Email/Template.pm
+V 103
+/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/lib/Catalyst/Helper/View/Email/Template.pm
 END

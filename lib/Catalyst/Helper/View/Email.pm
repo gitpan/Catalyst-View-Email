@@ -1,5 +1,5 @@
 package Catalyst::Helper::View::Email;
-our $VERSION = '0.21_01';
+our $VERSION = '0.21';
 
 use strict;
 
@@ -9,7 +9,7 @@ Catalyst::Helper::View::Email - Helper for Email Views
 
 =head1 VERSION
 
-version 0.21_01
+version 0.21
 
 =head1 SYNOPSIS
 

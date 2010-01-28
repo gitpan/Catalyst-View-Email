@@ -1,6 +1,6 @@
 package # Hide from PAUSE
     TestApp::View::Email::AppConfig;
-our $VERSION = '0.21_01';
+our $VERSION = '0.21';
 
 use Email::Sender::Simple;
 

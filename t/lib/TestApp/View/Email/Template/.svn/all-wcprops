@@ -1,11 +1,11 @@
 K 25
 svn:wc:ra_dav:version-url
-V 90
-/repos/Catalyst/!svn/ver/12626/Catalyst-View-Email/trunk/t/lib/TestApp/View/Email/Template
+V 94
+/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/lib/TestApp/View/Email/Template
 END
 AppConfig.pm
 K 25
 svn:wc:ra_dav:version-url
-V 103
-/repos/Catalyst/!svn/ver/12626/Catalyst-View-Email/trunk/t/lib/TestApp/View/Email/Template/AppConfig.pm
+V 107
+/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/lib/TestApp/View/Email/Template/AppConfig.pm
 END

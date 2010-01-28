@@ -1,6 +1,6 @@
 package  # Hide from PAUSE
     TestApp::Controller::Root;
-our $VERSION = '0.21_01';
+our $VERSION = '0.21';
 
 use base qw(Catalyst::Controller);
 

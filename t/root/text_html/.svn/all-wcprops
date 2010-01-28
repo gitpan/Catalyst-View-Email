@@ -1,17 +1,17 @@
 K 25
 svn:wc:ra_dav:version-url
-V 73
-/repos/Catalyst/!svn/ver/10244/Catalyst-View-Email/trunk/t/root/text_html
+V 77
+/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/root/text_html
 END
 test.tt
 K 25
 svn:wc:ra_dav:version-url
-V 81
-/repos/Catalyst/!svn/ver/10244/Catalyst-View-Email/trunk/t/root/text_html/test.tt
+V 85
+/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/root/text_html/test.tt
 END
 test.m
 K 25
 svn:wc:ra_dav:version-url
-V 80
-/repos/Catalyst/!svn/ver/10244/Catalyst-View-Email/trunk/t/root/text_html/test.m
+V 84
+/repos/Catalyst/!svn/ver/12761/Catalyst-View-Email/tags/0.21/t/root/text_html/test.m
 END
