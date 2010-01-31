@@ -1,6 +1,6 @@
 package # Hide me.
     TestApp::View::Mason;
-our $VERSION = '0.22';
+our $VERSION = '0.23';
 
 use strict;
 eval "use base 'Catalyst::View::Mason';";
