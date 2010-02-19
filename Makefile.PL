@@ -1,31 +1,41 @@
+use inc::Module::Install 0.91;
 
-use strict;
-use warnings;
+name     'Catalyst-View-Email';
+all_from 'lib/Catalyst/View/Email.pm';
+author   'J. Shirley <jshirley@gmail.com>';
+license  'perl';
 
+test_requires 'Test::More';
 
+requires 'MIME::Base64'          => '3.08';
+requires 'Authen::SASL'          => '2.13';
+requires 'Catalyst'              => '5.7';
+requires 'Moose'                 => '0.93';
+requires 'parent'                => '0.223';
+requires 'Email::Sender::Simple' => '0.100110';
+requires 'Email::MIME'           => '1.859';
+requires 'Email::MIME::Creator'  => '1.455';
 
-use ExtUtils::MakeMaker;
+feature 'Template Toolkit support',
+    -default                => 0,
+    'Catalyst::View::TT'    => '0.31';
 
-WriteMakefile(
-  DISTNAME  => 'Catalyst-View-Email',
-  NAME      => 'Catalyst::View::Email',
-  AUTHOR    => "J\.\ Shirley\ \<jshirley\@gmail\.com\>",
-  ABSTRACT  => "Send\ Email\ from\ Catalyst",
-  VERSION   => '0.23',
-  EXE_FILES => [ qw() ],
-  (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
-  PREREQ_PM    => {
-    "Catalyst::View::TT" => '0.31',
-    "parent" => '0.223',
-    "Email::MIME" => '1.859',
-    "Authen::SASL" => '2.13',
-    "Catalyst::View::Mason" => '0.18',
-    "Email::Sender::Simple" => '0.100110',
-    "MIME::Base64" => '3.08',
-    "Catalyst" => '5.7',
-    "Email::MIME::Creator" => '1.455',
-    "Moose" => '0.93',
-  },
-  test => {TESTS => 't/*.t'}
-);
+feature 'HTML::Mason support',
+    -default                => 0,
+    'Catalyst::View::Mason' => '0.18';
 
+# Rebuild README for maintainers
+if ($Module::Install::AUTHOR) {
+    system("pod2text lib/Catalyst/View/Email.pm > README");
+}
+
+realclean_files 'README';
+
+resources 'IRC'         => 'irc://irc.perl.org/#catalyst';
+resources 'license'     => 'http://dev.perl.org/licenses/';
+resources 'repository'  => 'http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/';
+resources 'MailingList' => 'http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst';
+
+auto_provides;
+auto_install;
+WriteAll;

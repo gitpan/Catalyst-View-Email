@@ -1,6 +1,5 @@
 package # Hide from PAUSE
     TestApp::View::Email;
-our $VERSION = '0.23';
 
 
 use base 'Catalyst::View::Email';

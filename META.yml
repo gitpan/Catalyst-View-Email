@@ -2,17 +2,36 @@
 abstract: 'Send Email from Catalyst'
 author:
   - 'J. Shirley <jshirley@gmail.com>'
-generated_by: 'Dist::Zilla version 1.093400'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+  Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
+distribution_type: module
+generated_by: 'Module::Install version 0.93'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Catalyst-View-Email
+no_index:
+  directory:
+    - inc
+    - t
+provides:
+  Catalyst::Helper::View::Email:
+    file: lib/Catalyst/Helper/View/Email.pm
+  Catalyst::Helper::View::Email::Template:
+    file: lib/Catalyst/Helper/View/Email/Template.pm
+  Catalyst::View::Email:
+    file: lib/Catalyst/View/Email.pm
+    version: 0.25_01
+  Catalyst::View::Email::Template:
+    file: lib/Catalyst/View/Email/Template.pm
+    version: 0.25_01
 requires:
   Authen::SASL: 2.13
   Catalyst: 5.7
-  Catalyst::View::Mason: 0.18
-  Catalyst::View::TT: 0.31
   Email::MIME: 1.859
   Email::MIME::Creator: 1.455
   Email::Sender::Simple: 0.100110
@@ -20,5 +39,8 @@ requires:
   Moose: 0.93
   parent: 0.223
 resources:
-  repository: http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email
-version: 0.23
+  IRC: irc://irc.perl.org/#catalyst
+  MailingList: http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst
+  license: http://dev.perl.org/licenses/
+  repository: http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/
+version: 0.25_01
