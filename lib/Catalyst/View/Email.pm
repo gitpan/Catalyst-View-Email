@@ -8,7 +8,7 @@ use Email::Sender::Simple qw/ sendmail /;
 use Email::MIME::Creator;
 extends 'Catalyst::View';
 
-our $VERSION = '0.31';
+our $VERSION = '0.32';
 $VERSION = eval $VERSION;
 
 has 'mailer' => (
@@ -98,9 +98,9 @@ In your app configuration:
                 mailer => 'SMTP',
                 # mailer_args is passed directly into Email::Sender::Simple 
                 mailer_args => {
-                    Host     => 'smtp.example.com', # defaults to localhost
-                    username => 'username',
-                    password => 'password',
+                    host     => 'smtp.example.com', # defaults to localhost
+                    sasl_username => 'sasl_username',
+                    sasl_password => 'sasl_password',
             }
           }
         }
@@ -124,7 +124,6 @@ Sending email is just filling the stash and forwarding to the view:
         $c->stash->{email} = {
             to      => 'jshirley@gmail.com',
             cc      => 'abraxxa@cpan.org',
-            bcc     => join ',', qw/hidden@secret.com hidden2@foobar.com/,
             from    => 'no-reply@foobar.com',
             subject => 'I am a Catalyst generated email',
             body    => 'Body Body Body',
@@ -161,6 +160,19 @@ contained ones.
             )
         ],
     };
+
+You can set the envelope sender and recipient as well:
+
+  $c->stash->{email} = {
+
+    envelope_from => 'envelope-from@example.com',
+    from          => 'header-from@example.com',
+
+    envelope_to   => [ 'foo@example.com', 'bar@example.com' ],
+    to            => 'Undisclosed Recipients:;',
+
+    ...
+  };
 
 =head1 HANDLING ERRORS
 
@@ -245,8 +257,6 @@ sub process {
       if $email->{to};
     push @$header, ( 'Cc' => delete $email->{cc} )
       if $email->{cc};
-    push @$header, ( 'Bcc' => delete $email->{bcc} )
-      if $email->{bcc};
     push @$header, ( 'From' => delete $email->{from} )
       if $email->{from};
     push @$header,
@@ -286,7 +296,12 @@ sub process {
     my $message = $self->generate_message( $c, \%mime );
 
     if ($message) {
-        my $return = sendmail( $message, { transport => $self->_mailer_obj } );
+        my $return = sendmail( $message,
+          {
+            exists $email->{envelope_from} ? ( from => $email->{envelope_from} ) : (),
+            exists $email->{envelope_to}   ? ( to   => $email->{envelope_to}   ) : (),
+            transport => $self->_mailer_obj,
+          } );
 
         # return is a Return::Value object, so this will stringify as the error
         # in the case of a failure.
