@@ -41,8 +41,8 @@ CONFIGURATION
                     # mailer_args is passed directly into Email::Sender::Simple 
                     mailer_args => {
                         host     => 'smtp.example.com', # defaults to localhost
-                        username => 'username',
-                        password => 'password',
+                        sasl_username => 'sasl_username',
+                        sasl_password => 'sasl_password',
                 }
               }
             }
@@ -80,6 +80,7 @@ SENDING EMAIL
             header => [
                 To      => 'jshirley@gmail.com',
                 Cc      => 'abraxxa@cpan.org',
+                Bcc     => join ',', qw/hidden@secret.com hidden2@foobar.com/,
                 From    => 'no-reply@foobar.com',
                 Subject => 'Note the capitalization differences',
             ],
@@ -96,6 +97,19 @@ SENDING EMAIL
                 )
             ],
         };
+
+    You can set the envelope sender and recipient as well:
+
+      $c->stash->{email} = {
+
+        envelope_from => 'envelope-from@example.com',
+        from          => 'header-from@example.com',
+
+        envelope_to   => [ 'foo@example.com', 'bar@example.com' ],
+        to            => 'Undisclosed Recipients:;',
+
+        ...
+      };
 
 HANDLING ERRORS
     If the email fails to send, the view will die (throw an exception).
