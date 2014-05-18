@@ -17,6 +17,7 @@ requires 'Email::Sender::Simple' => '0.100110';
 requires 'Email::MIME'           => '1.859';
 requires 'Email::MIME::Creator'  => '1.455';
 requires 'Test::More'            => '0.88';
+requires 'Module::Runtime'       => '0.014';
 #requires 'Catalyst::View::TT'    => '0.31';
 #requires 'Catalyst::View::Mason' => '0.18';
 
@@ -30,7 +31,7 @@ realclean_files 'README';
 resources 'IRC'     => 'irc://irc.perl.org/#catalyst';
 resources 'license' => 'http://dev.perl.org/licenses/';
 resources 'repository' =>
-  'http://dev.catalyst.perl.org/repos/Catalyst/Catalyst-View-Email/';
+  'http://github.com/dhoss/catalyst-view-email';
 resources 'MailingList' =>
   'http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst';
 

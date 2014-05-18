@@ -4,18 +4,17 @@ author:
   - 'J. Shirley <jshirley@gmail.com>'
   - 'J. Shirley <jshirley@gmail.com>'
 build_requires:
-  ExtUtils::MakeMaker: 6.36
-  Test::More: 0
-  Test::Requires: 0
+  ExtUtils::MakeMaker: '6.36'
+  Test::More: '0'
+  Test::Requires: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.36
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.08'
+  ExtUtils::MakeMaker: '6.36'
+dynamic_config: 0
+generated_by: 'Module::Install version 1.08, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Catalyst-View-Email
 no_index:
   directory:

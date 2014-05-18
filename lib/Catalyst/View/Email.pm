@@ -6,9 +6,10 @@ use Carp;
 use Encode qw(encode decode);
 use Email::Sender::Simple qw/ sendmail /;
 use Email::MIME::Creator;
+use Module::Runtime;
 extends 'Catalyst::View';
 
-our $VERSION = '0.33';
+our $VERSION = '0.34';
 $VERSION = eval $VERSION;
 
 has 'mailer' => (
@@ -223,7 +224,7 @@ sub _build_mailer_obj {
         $transport_class = "Email::Sender::Transport::$transport_class";
     }
 
-    Class::MOP::load_class($transport_class);
+    Module::Runtime::require_module($transport_class);
 
     return $transport_class->new( $self->sender->{mailer_args} || {} );
 }
@@ -390,7 +391,7 @@ message object.
 sub generate_message {
     my ( $self, $c, $attr ) = @_;
 
-    # setup the attributes (merge with defaultis)
+    # setup the attributes (merge with defaults)
     $attr->{attributes} = $self->setup_attributes( $c, $attr->{attributes} );
     Email::MIME->create( %$attr );
 }
