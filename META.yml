@@ -11,7 +11,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.36
 distribution_type: module
 dynamic_config: 1
-generated_by: 'Module::Install version 1.08'
+generated_by: 'Module::Install version 1.14'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -30,10 +30,10 @@ provides:
     version: '0.34'
   Catalyst::View::Email:
     file: lib/Catalyst/View/Email.pm
-    version: '0.34'
+    version: '0.35'
   Catalyst::View::Email::Template:
     file: lib/Catalyst/View/Email/Template.pm
-    version: '0.34'
+    version: '0.35'
 requires:
   Authen::SASL: '2.13'
   Catalyst: '5.7'
@@ -47,7 +47,8 @@ requires:
   parent: '0.223'
 resources:
   IRC: irc://irc.perl.org/#catalyst
-  MailingList: http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst
+  Mailing_list: http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst
+  bugtracker: https://github.com/dhoss/catalyst-view-email/issues
   license: http://dev.perl.org/licenses/
   repository: http://github.com/dhoss/catalyst-view-email
-version: '0.34'
+version: '0.35'

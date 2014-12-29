@@ -5,7 +5,7 @@
       "J. Shirley <jshirley@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Module::Install version 1.08, CPAN::Meta::Converter version 2.140640",
+   "generated_by" : "Module::Install version 1.14, CPAN::Meta::Converter version 2.143240",
    "license" : [
       "perl_5"
    ],
@@ -30,7 +30,7 @@
       },
       "configure" : {
          "requires" : {
-            "ExtUtils::MakeMaker" : "6.36"
+            "ExtUtils::MakeMaker" : "0"
          }
       },
       "runtime" : {
@@ -48,26 +48,11 @@
          }
       }
    },
-   "provides" : {
-      "Catalyst::Helper::View::Email" : {
-         "file" : "lib/Catalyst/Helper/View/Email.pm",
-         "version" : "0.34"
-      },
-      "Catalyst::Helper::View::Email::Template" : {
-         "file" : "lib/Catalyst/Helper/View/Email/Template.pm",
-         "version" : "0.34"
-      },
-      "Catalyst::View::Email" : {
-         "file" : "lib/Catalyst/View/Email.pm",
-         "version" : "0.34"
-      },
-      "Catalyst::View::Email::Template" : {
-         "file" : "lib/Catalyst/View/Email/Template.pm",
-         "version" : "0.34"
-      }
-   },
    "release_status" : "stable",
    "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/dhoss/catalyst-view-email/issues"
+      },
       "license" : [
          "http://dev.perl.org/licenses/"
       ],
@@ -77,5 +62,5 @@
       "x_IRC" : "irc://irc.perl.org/#catalyst",
       "x_MailingList" : "http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst"
    },
-   "version" : "0.34"
+   "version" : "0.35"
 }

@@ -8,9 +8,9 @@ build_requires:
   Test::More: '0'
   Test::Requires: '0'
 configure_requires:
-  ExtUtils::MakeMaker: '6.36'
+  ExtUtils::MakeMaker: '0'
 dynamic_config: 0
-generated_by: 'Module::Install version 1.08, CPAN::Meta::Converter version 2.140640'
+generated_by: 'Module::Install version 1.14, CPAN::Meta::Converter version 2.143240'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -20,19 +20,6 @@ no_index:
   directory:
     - inc
     - t
-provides:
-  Catalyst::Helper::View::Email:
-    file: lib/Catalyst/Helper/View/Email.pm
-    version: '0.34'
-  Catalyst::Helper::View::Email::Template:
-    file: lib/Catalyst/Helper/View/Email/Template.pm
-    version: '0.34'
-  Catalyst::View::Email:
-    file: lib/Catalyst/View/Email.pm
-    version: '0.34'
-  Catalyst::View::Email::Template:
-    file: lib/Catalyst/View/Email/Template.pm
-    version: '0.34'
 requires:
   Authen::SASL: '2.13'
   Catalyst: '5.7'
@@ -47,6 +34,7 @@ requires:
 resources:
   IRC: irc://irc.perl.org/#catalyst
   MailingList: http://lists.scsys.co.uk/cgi-bin/mailman/listinfo/catalyst
+  bugtracker: https://github.com/dhoss/catalyst-view-email/issues
   license: http://dev.perl.org/licenses/
   repository: http://github.com/dhoss/catalyst-view-email
-version: '0.34'
+version: '0.35'
